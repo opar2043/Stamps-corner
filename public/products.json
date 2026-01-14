@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "dvbewghvhbfhgehrbfehcjtkghbjrgj",
+    "name": "Queen Victoria Penny Black",
+    "country": "United Kingdom",
+    "year": "1840",
+    "condition": "Used – Good",
+    "price": 120.00,
+    "image": "https://images.unsplash.com/photo-1712239010154-10868e0f6bd8?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RhbXB8ZW58MHx8MHx8fDA%3D",
+    "letter": "Q"
+  },
+  {
+    "_id": "2",
+    "name": "King George VI Definitive",
+    "country": "United Kingdom",
+    "year": "1937",
+    "condition": "Mint – Very Fine",
+    "price": 45.00,
+    "image": "https://www.shutterstock.com/image-photo/tasmania-1864-1-shilling-vermilion-260nw-2374841035.jpg",
+    "letter": "K"
+  },
+  {
+    "_id": "3",
+    "name": "Blue Mauritius",
+    "country": "Mauritius",
+    "year": "1847",
+    "condition": "Used – Fair",
+    "price": 250.00,
+    "image": "https://www.1st4stamps1840.co.uk/wp-content/uploads/imported/9/GB-QEII-SG605a-2d-light-red-brown-GRAPHITE-LINED-WMK-EDWARD-FINE-USED-Cat-175-375482557089.jpg",
+    "letter": "B"
+  },
+  {
+    "_id": "4",
+    "name": "Penny Red",
+    "country": "United Kingdom",
+    "year": "1854",
+    "condition": "Used – Good",
+    "price": 60.00,
+    "image": "https://www.shutterstock.com/image-photo/tasmania-1864-1-shilling-vermilion-260nw-2374841035.jpg",
+    "letter": "P"
+  },
+  {
+    "_id": "5",
+    "name": "Edward VII Definitive",
+    "country": "United Kingdom",
+    "year": "1902",
+    "condition": "Mint – Excellent",
+    "price": 85.00,
+    "image": "https://www.1st4stamps1840.co.uk/wp-content/uploads/imported/9/GB-QEII-SG605a-2d-light-red-brown-GRAPHITE-LINED-WMK-EDWARD-FINE-USED-Cat-175-375482557089.jpg",
+    "letter": "E"
+  },
+  {
+    "_id": "6",
+    "name": "George Washington Stamp",
+    "country": "United States",
+    "year": "1890",
+    "condition": "Used – Very Good",
+    "price": 55.00,
+    "image": "https://www.shutterstock.com/image-photo/tasmania-1864-1-shilling-vermilion-260nw-2374841035.jpg",
+    "letter": "G"
+  },
+  {
+    "_id": "7",
+    "name": "Maple Leaf Definitive",
+    "country": "Canada",
+    "year": "1897",
+    "condition": "Mint – Fine",
+    "price": 70.00,
+    "image": "https://sgbaldwins.com/_next/image?url=https%3A%2F%2Fcompetent-prize-bbe30fc6a2.media.strapiapp.com%2Fxlarge_Screenshot_2025_11_13_at_15_12_32_e4274f669e.png&w=1920&q=75",
+    "letter": "M"
+  },
+  {
+    "_id": "8",
+    "name": "Kangaroo and Map",
+    "country": "Australia",
+    "year": "1913",
+    "condition": "Used – Good",
+    "price": 95.00,
+    "image": "https://placehold.co/400x400/png?text=Stamp+8",
+    "letter": "K"
+  },
+  {
+    "_id": "9",
+    "name": "Olympic Games Commemorative",
+    "country": "Germany",
+    "year": "1936",
+    "condition": "Mint – Very Fine",
+    "price": 40.00,
+    "image": "https://sgbaldwins.com/_next/image?url=https%3A%2F%2Fcompetent-prize-bbe30fc6a2.media.strapiapp.com%2Fxlarge_Screenshot_2025_11_13_at_15_12_32_e4274f669e.png&w=1920&q=75",
+    "letter": "O"
+  },
+  {
+    "_id": "10",
+    "name": "Independence Anniversary",
+    "country": "India",
+    "year": "1947",
+    "condition": "Mint – Good",
+    "price": 35.00,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWX304adgS4Jrr67uRmZJbv1O1zMCOFtPIHg&s",
+    "letter": "I"
+  },
+  {
+    "_id": "11",
+    "name": "Centenary Commemorative",
+    "country": "France",
+    "year": "1950",
+    "condition": "Mint – Excellent",
+    "price": 50.00,
+    "image": "https://thumbs.dreamstime.com/b/postage-stamp-bangladesh-gas-industry-post-printed-value-bangladeshi-paisa-series-images-232226134.jpg",
+    "letter": "C"
+  },
+  {
+    "_id": "12",
+    "name": "Royal Coronation Issue",
+    "country": "United Kingdom",
+    "year": "1953",
+    "condition": "Mint – Very Fine",
+    "price": 65.00,
+    "image": "https://images.unsplash.com/photo-1712239010154-10868e0f6bd8?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3RhbXB8ZW58MHx8MHx8fDA%3D",
+    "letter": "R"
+  }
+]
