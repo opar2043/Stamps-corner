@@ -6,10 +6,10 @@ import useProducts from "../../Hooks/useProducts";
 import { Link } from "react-router-dom";
 
 const AllProducts = () => {
-  // const [stamps, setStamps] = useState([]);
-  const [alert, setAlert] = useState({ type: "", message: "" });
+
   const axiosSecure = useAxios();
-  const [products , refetch , isLoading] = useProducts([])
+  const [products , refetch , isLoading] = useProducts([]);
+  console.log(products);
   // useEffect(() => {
   //   fetch("https://stupms-backend.vercel.app/products")
   //     .then((res) => res.json())
@@ -37,8 +37,7 @@ const handleDelete = (id) => {
             confirmButtonColor: "#2563EB",
           });
            refetch();
-          // Optional: update UI instantly
-          // setStamps((prev) => prev.filter((s) => s._id !== id));
+
         })
         .catch(() => {
           Swal.fire({
@@ -59,15 +58,7 @@ const handleDelete = (id) => {
         🏷️ All Stamps
       </h2>
 
-      {alert.message && (
-        <div
-          className={`mb-6 p-4 rounded-xs text-white text-center font-medium ${
-            alert.type === "success" ? "bg-blue-500" : "bg-red-500"
-          }`}
-        >
-          {alert.message}
-        </div>
-      )}
+
 
       <div className="overflow-x-auto shadow-md rounded-xs bg-white border border-gray-200">
         <table className="min-w-full text-sm text-left">

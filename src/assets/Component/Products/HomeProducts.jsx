@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import { Link } from "react-router-dom";
+import useProducts from "../Hooks/useProducts";
 
 const HomeProducts = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data.slice(0, 6))); // show only 6 on home
-  }, []);
+  // useEffect(() => {
+  //   fetch("/products.json")
+  //     .then((res) => res.json())
+  //     .then((data) => setProducts(data.slice(0, 6))); // show only 6 on home
+  // }, []);
+
+
+  const [products , refetch] = useProducts();
 
   return (
     <section className="bg-[#f8f9fa] mx-auto px-6 py-16">
@@ -20,7 +24,7 @@ const HomeProducts = () => {
 
       {/* Product Grid */}
       <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-11/12 mx-auto">
-        {products.map((item) => (
+        {products && products?.map((item) => (
           <div
             key={item._id}
             className="transform transition-transform hover:scale-105 hover:shadow-lg duration-300"

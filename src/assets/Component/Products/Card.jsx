@@ -11,35 +11,40 @@ const Card = ({ item }) => {
   const axiosSecure = useAxios();
 
   const handleCart = async (item) => {
-    // try {
-    //   const res = await axiosSecure.post("/cart", item);
+    const product = {
+      image: item.image,
+      price: item.price,
+      name: item.name,
+    };
 
-    //   if (res?.data?.insertedId) {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Added to Cart",
-    //       text: `${item.name} added successfully`,
-    //       timer: 1200,
-    //       showConfirmButton: false,
-    //     });
-    //     refetch();
-    //   } else {
-    //     Swal.fire({
-    //       icon: "info",
-    //       title: "Already Added",
-    //       text: `${item.name} is already in your cart`,
-    //       timer: 1200,
-    //       showConfirmButton: false,
-    //     });
-    //   }
-    // } catch (error) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Error",
-    //     text: "Failed to add item",
-    //   });
-    // }
+    try {
+      const res = await axiosSecure.post("/cart", product);
 
+      if (res?.data?.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Added to Cart",
+          text: `${item.name} added successfully`,
+          timer: 1200,
+          showConfirmButton: false,
+        });
+        refetch();
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "Already Added",
+          text: `${item.name} is already in your cart`,
+          timer: 1200,
+          showConfirmButton: false,
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to add item",
+      });
+    }
 
     console.log(item);
   };

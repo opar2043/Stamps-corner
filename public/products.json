@@ -1,6 +1,6 @@
 [
   {
-    "_id": "dvbewghvhbfhgehrbfehcjtkghbjrgj",
+
     "name": "Queen Victoria Penny Black",
     "country": "United Kingdom",
     "year": "1840",
@@ -10,7 +10,7 @@
     "letter": "Q"
   },
   {
-    "_id": "2",
+
     "name": "King George VI Definitive",
     "country": "United Kingdom",
     "year": "1937",
@@ -20,7 +20,7 @@
     "letter": "K"
   },
   {
-    "_id": "3",
+
     "name": "Blue Mauritius",
     "country": "Mauritius",
     "year": "1847",
@@ -30,7 +30,7 @@
     "letter": "B"
   },
   {
-    "_id": "4",
+
     "name": "Penny Red",
     "country": "United Kingdom",
     "year": "1854",
@@ -40,7 +40,7 @@
     "letter": "P"
   },
   {
-    "_id": "5",
+
     "name": "Edward VII Definitive",
     "country": "United Kingdom",
     "year": "1902",
@@ -50,7 +50,7 @@
     "letter": "E"
   },
   {
-    "_id": "6",
+
     "name": "George Washington Stamp",
     "country": "United States",
     "year": "1890",
@@ -60,7 +60,7 @@
     "letter": "G"
   },
   {
-    "_id": "7",
+
     "name": "Maple Leaf Definitive",
     "country": "Canada",
     "year": "1897",
@@ -70,7 +70,7 @@
     "letter": "M"
   },
   {
-    "_id": "8",
+
     "name": "Kangaroo and Map",
     "country": "Australia",
     "year": "1913",
@@ -80,7 +80,7 @@
     "letter": "K"
   },
   {
-    "_id": "9",
+
     "name": "Olympic Games Commemorative",
     "country": "Germany",
     "year": "1936",
@@ -90,7 +90,7 @@
     "letter": "O"
   },
   {
-    "_id": "10",
+
     "name": "Independence Anniversary",
     "country": "India",
     "year": "1947",
@@ -100,7 +100,7 @@
     "letter": "I"
   },
   {
-    "_id": "11",
+
     "name": "Centenary Commemorative",
     "country": "France",
     "year": "1950",
@@ -110,7 +110,7 @@
     "letter": "C"
   },
   {
-    "_id": "12",
+
     "name": "Royal Coronation Issue",
     "country": "United Kingdom",
     "year": "1953",

@@ -140,7 +140,7 @@ const Navbar = () => {
       <div className="bg-[#1B64B3] text-white">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           {/* Left */}
-          <Link to="/" className="text-2xl font-semibold">
+          <Link to="/" className="text-2xl text-white font-semibold">
             Stamp Collectors Corner
           </Link>
 
@@ -193,9 +193,9 @@ const Navbar = () => {
             >
               {/* Header */}
               <div className="flex items-center justify-between mb-6">
-                <span className="text-lg  font-semibold">
+                <span className="text-xs md:text-lg  text-white font-semibold">
                   Stamp Collectors Corner
-                </span>
+                </span>  
                 <button onClick={() => setOpen(false)}>
                   <FiX className="text-2xl" />
                 </button>

@@ -13,7 +13,6 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
   const [quantities, setQuantities] = useState({});
   const axiosSecure = useAxios();
 
-  // 🔹 delete single cart item
   const handleDeleteCart = async (id) => {
     const confirm = await Swal.fire({
       title: "Remove item?",
@@ -29,7 +28,8 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
 
     try {
       const res = await axiosSecure.delete(`/cart/${id}`);
-      if (res?.data?.deletedCount > 0) {
+
+      console.log(res);
         Swal.fire({
           icon: "success",
           title: "Removed!",
@@ -37,7 +37,7 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
           showConfirmButton: false,
         });
         refetch();
-      }
+     
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -46,8 +46,6 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
       });
     }
   };
-
-
 
   // 🔹 change quantity local state
   const handleQuantityChange = (id, value) => {
@@ -58,7 +56,7 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
   const subtotal =
     cart.reduce((sum, item) => {
       const qty = quantities[item._id] ?? 1;
-    return sum + Number(item.price || 0) * qty;
+      return sum + Number(item.price || 0) * qty;
     }, 0) || 0;
 
   return (
@@ -98,7 +96,9 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
                     />
 
                     <div className="flex-1">
-                      <h4 className="text-sm font-semibold text-slate-800">{item.name}</h4>
+                      <h4 className="text-sm font-semibold text-slate-800">
+                        {item.name}
+                      </h4>
 
                       <input
                         type="number"

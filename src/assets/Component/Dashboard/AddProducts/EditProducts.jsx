@@ -1,219 +1,216 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAxios from "../../Hooks/useAxios";
-import { FiImage, FiDollarSign, FiFlag, FiCalendar, FiBookmark } from "react-icons/fi";
+import {
+  FiImage,
+  FiDollarSign,
+  FiFlag,
+  FiCalendar,
+  FiBookmark,
+} from "react-icons/fi";
+import useProducts from "../../Hooks/useProducts";
 
-const img_api_key = "https://api.imgbb.com/1/upload?key=188918a9c4dee4bd0453f7ec15042a27";
+const img_api_key =
+  "https://api.imgbb.com/1/upload?key=188918a9c4dee4bd0453f7ec15042a27";
 
 const EditProducts = () => {
-  const { id } = useParams(); // stamp ID
+  const { id } = useParams();
   const axiosSecure = useAxios();
-  const [alert, setAlert] = useState({ type: "", message: "" });
   const [stamp, setStamp] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [imageFile, setImageFile] = useState(null);
 
-  console.log(id);
+  const [products, refetch, isLoading] = useProducts();
 
-  // Fetch existing stamp data
+  // 🔹 Find product
+  const findstamp = products?.find((item) => item._id === id);
+
+  // 🔹 Sync to local state
   useEffect(() => {
-    axiosSecure.get(`/products/${id}`)
-      .then(res => {
-        setStamp(res.data);
-        setLoading(false);
-      })
-      .catch(() => {
-        setAlert({ type: "error", message: "Failed to load stamp data." });
-        setLoading(false);
-      });
-  }, [id]);
+    if (findstamp) {
+      setStamp(findstamp);
+    }
+  }, [findstamp]);
 
-  const handleEditStamp = (e) => {
+  const handleEditStamp = async (e) => {
     e.preventDefault();
     if (!stamp) return;
 
     const form = e.target;
 
-    const name = form.name.value;
-    const country = form.country.value;
-    const year = form.year.value;
-    const condition = form.condition.value;
-    const price = form.price.value;
-    const letter = form.letter.value.toUpperCase();
-
-    const updateStamp = (imageUrl) => {
-      const stampObj = {
-        name,
-        country,
-        year,
-        condition,
-        price: parseFloat(price),
-        letter,
-        image: imageUrl || stamp.image, // keep old image if not replaced
-      };
-
-      axiosSecure.put(`/stamps/${id}`, stampObj)
-        .then(() => {
-          setAlert({ type: "success", message: "Stamp updated successfully!" });
-        })
-        .catch(() => {
-          setAlert({ type: "error", message: "Update failed. Try again." });
-        });
+    const stampObj = {
+      name: form.name.value,
+      country: form.country.value,
+      year: form.year.value,
+      condition: form.condition.value,
+      price: parseFloat(form.price.value),
+      letter: form.letter.value.toUpperCase(),
+      image: stamp.image,
     };
 
-    // If a new image is selected, upload it
-    if (imageFile) {
-      const data = new FormData();
-      data.append("image", imageFile);
+    try {
+      // 🔹 Upload image if changed
+      if (imageFile) {
+        const data = new FormData();
+        data.append("image", imageFile);
 
-      fetch(img_api_key, {
-        method: "POST",
-        body: data,
-      })
-        .then(res => res.json())
-        .then(imgData => {
-          updateStamp(imgData.data.url);
-        })
-        .catch(() => {
-          setAlert({ type: "error", message: "Image upload failed." });
+        const res = await fetch(img_api_key, {
+          method: "POST",
+          body: data,
         });
-    } else {
-      updateStamp(); // no image change
+        const imgData = await res.json();
+        stampObj.image = imgData.data.display_url;
+      }
+
+      const res = await axiosSecure.put(`/products/${id}`, stampObj);
+
+      if (res.data.modifiedCount > 0) {
+        Swal.fire({
+          icon: "success",
+          title: "Updated!",
+          text: "Stamp updated successfully",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        refetch(); // ✅ IMPORTANT
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "No Changes",
+          text: "Nothing was updated",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: "Something went wrong",
+      });
     }
   };
 
-  if (loading) {
-    return <p className="text-center mt-10 text-gray-500">Loading stamp data...</p>;
-  }
-
-  if (!stamp) {
-    return <p className="text-center mt-10 text-red-500">Stamp not found.</p>;
+  if (isLoading || !stamp) {
+    return (
+      <p className="text-center mt-10 text-gray-500">
+        Loading stamp data...
+      </p>
+    );
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 rounded-xs shadow-md">
-      <h2 className="text-3xl font-bold text-gray-900 mb-2">Edit Stamp</h2>
-      <p className="text-gray-600 mb-6">Update the details of this stamp</p>
-
-      {alert.message && (
-        <div
-          className={`mb-6 p-4 rounded-xs text-white text-center font-medium ${
-            alert.type === "success" ? "bg-blue-500" : "bg-red-500"
-          }`}
-        >
-          {alert.message}
-        </div>
-      )}
+    <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+      <h2 className="text-3xl font-bold mb-6 text-gray-900">
+        Edit Stamp
+      </h2>
 
       <form onSubmit={handleEditStamp} className="space-y-5">
-        {/* Name & Country */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FiBookmark className="inline mr-2 text-blue-500" /> Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              required
-              defaultValue={stamp.name}
-              placeholder="Enter stamp name"
-              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FiFlag className="inline mr-2 text-blue-500" /> Country
-            </label>
-            <input
-              type="text"
-              name="country"
-              required
-              defaultValue={stamp.country}
-              placeholder="Enter country"
-              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            />
-          </div>
+        {/* Name */}
+        <div>
+          <label className="flex items-center gap-2 text-sm font-semibold mb-1">
+            <FiBookmark /> Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            defaultValue={stamp.name}
+            required
+            className="w-full border rounded px-3 py-2"
+          />
         </div>
 
-        {/* Year & Condition */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FiCalendar className="inline mr-2 text-blue-500" /> Year
-            </label>
-            <input
-              type="number"
-              name="year"
-              required
-              defaultValue={stamp.year}
-              placeholder="e.g. 1854"
-              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Condition</label>
-            <input
-              type="text"
-              name="condition"
-              required
-              defaultValue={stamp.condition}
-              placeholder="e.g. Used – Good"
-              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            />
-          </div>
+        {/* Country */}
+        <div>
+          <label className="flex items-center gap-2 text-sm font-semibold mb-1">
+            <FiFlag /> Country
+          </label>
+          <input
+            type="text"
+            name="country"
+            defaultValue={stamp.country}
+            required
+            className="w-full border rounded px-3 py-2"
+          />
         </div>
 
-        {/* Price & Letter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FiDollarSign className="inline mr-2 text-blue-500" /> Price ($)
-            </label>
-            <input
-              type="number"
-              name="price"
-              step="0.01"
-              required
-              defaultValue={stamp.price}
-              placeholder="e.g. 60.00"
-              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Letter</label>
-            <input
-              type="text"
-              name="letter"
-              required
-              defaultValue={stamp.letter}
-              placeholder="e.g. P"
-              maxLength={1}
-              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm text-center uppercase"
-            />
-          </div>
+        {/* Year */}
+        <div>
+          <label className="flex items-center gap-2 text-sm font-semibold mb-1">
+            <FiCalendar /> Year
+          </label>
+          <input
+            type="number"
+            name="year"
+            defaultValue={stamp.year}
+            required
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+
+        {/* Condition */}
+        <div>
+          <label className="text-sm font-semibold mb-1 block">
+            Condition
+          </label>
+          <input
+            type="text"
+            name="condition"
+            defaultValue={stamp.condition}
+            required
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+
+        {/* Price */}
+        <div>
+          <label className="flex items-center gap-2 text-sm font-semibold mb-1">
+            <FiDollarSign /> Price
+          </label>
+          <input
+            type="number"
+            name="price"
+            defaultValue={stamp.price}
+            required
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+
+        {/* Letter */}
+        <div>
+          <label className="text-sm font-semibold mb-1 block">
+            Letter
+          </label>
+          <input
+            type="text"
+            name="letter"
+            defaultValue={stamp.letter}
+            maxLength={1}
+            required
+            className="w-full border rounded px-3 py-2 uppercase text-center"
+          />
         </div>
 
         {/* Image */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            <FiImage className="inline mr-2 text-blue-500" /> Stamp Image
+          <label className="flex items-center gap-2 text-sm font-semibold mb-1">
+            <FiImage /> Image
           </label>
           <input
             type="file"
-            name="image"
-            accept="image/*"
             onChange={(e) => setImageFile(e.target.files[0])}
-            className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-xs file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-500 hover:file:bg-blue-100"
           />
-          {stamp.image && !imageFile && (
-            <img src={stamp.image} alt="Stamp" className="mt-2 w-32 h-32 object-cover rounded-md" />
+
+          {!imageFile && stamp.image && (
+            <img
+              src={stamp.image}
+              alt="Stamp"
+              className="mt-2 w-32 h-32 rounded object-cover border"
+            />
           )}
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3.5 rounded-xs shadow-md hover:shadow-lg transition-all duration-200 text-sm sm:text-base"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded font-semibold"
         >
           Update Stamp
         </button>

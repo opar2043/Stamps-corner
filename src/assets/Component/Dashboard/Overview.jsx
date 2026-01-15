@@ -9,7 +9,7 @@ const Overview = () => {
     const fetchStats = async () => {
       try {
         const res = await fetch(
-          "https://forge-frame-server.vercel.app/dashboard-stats"
+          "https://stupms-backend.vercel.app/dashboard-stats"
         );
         const data = await res.json();
         setStats(data);
