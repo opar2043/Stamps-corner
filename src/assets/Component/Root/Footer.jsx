@@ -19,8 +19,7 @@ const Footer = () => {
               <li>Buying on Delcampe</li>
               <li>Stamps</li>
               <li>Postcards</li>
-              <li>Coins & Banknotes</li>
-              <li>Other collections</li>
+
             </ul>
           </div>
 
@@ -32,7 +31,7 @@ const Footer = () => {
               <li>Rates</li>
               <li>Selling methods</li>
               <li>Estimate my item</li>
-              <li>Store subscriptions</li>
+
             </ul>
           </div>
 
@@ -42,8 +41,7 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-white/80">
               <li>Delcampe Community</li>
               <li>Calendar</li>
-              <li>Forum</li>
-              <li>Videos</li>
+
               <li>Blog</li>
             </ul>
           </div>
@@ -53,7 +51,7 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">The company</h4>
             <ul className="space-y-2 text-sm text-white/80">
               <li>Who are we?</li>
-              <li>Jobs</li>
+
               <li>Terms and Conditions</li>
               <li>Privacy Policy</li>
               <li>Cookie Usage Policy</li>
@@ -78,7 +76,7 @@ const Footer = () => {
               <li>Currency converter</li>
               <li>Verified Reviews</li>
               <li className="font-medium text-white">
-                ⭐ 4.5 out of 5
+                ⭐ 5 out of 5
               </li>
             </ul>
           </div>
@@ -95,15 +93,13 @@ const Footer = () => {
               Stamp Collectors Corner
             </h3>
             <p className="text-xs text-white/70">
-              Trusted marketplace for collectors worldwide
+              crossbarry998@gmail.com
             </p>
           </div>
 
           {/* Social */}
           <div className="flex gap-4">
-            <a className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition">
-              <FaFacebookF />
-            </a>
+
             <a className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition">
               <FaInstagram />
             </a>

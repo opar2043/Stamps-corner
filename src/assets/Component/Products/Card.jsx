@@ -6,12 +6,14 @@ import useAxios from "../Hooks/useAxios";
 import useCart from "../Hooks/useCart";
 
 const Card = ({ item }) => {
-  const { image, name, country, price } = item;
+  const { image, name, country, price,year } = item;
   const [, refetch] = useCart();
   const axiosSecure = useAxios();
 
   const handleCart = async (item) => {
+
     const product = {
+      productId:item._id,
       image: item.image,
       price: item.price,
       name: item.name,
@@ -45,8 +47,6 @@ const Card = ({ item }) => {
         text: "Failed to add item",
       });
     }
-
-    console.log(item);
   };
 
   return (
@@ -57,7 +57,7 @@ const Card = ({ item }) => {
 
       <div className="p-3">
         <h3 className="text-sm font-semibold line-clamp-1">{name}</h3>
-        <p className="text-xs text-gray-500">{country}</p>
+        <p className="text-xs text-gray-500">{country} , <span className="text-[9px]">{year}</span></p>
 
         <div className="flex justify-between items-center mt-2">
           <span className="font-semibold text-[#0E4588]">

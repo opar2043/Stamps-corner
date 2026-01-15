@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 const Users = () => {
   const [users = [], refetch, isLoading] = useUser();
-  console.log(users);
+
   const axiosSecure = useAxios();
 
   const [searchTerm, setSearchTerm] = useState("");

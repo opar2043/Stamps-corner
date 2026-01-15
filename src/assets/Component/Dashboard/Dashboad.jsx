@@ -14,6 +14,7 @@ const links = [
   { label: "All Stamps", to: "/dashboard/all-product", icon: <FiBox /> },
   { label: "Users", to: "/dashboard/users", icon: <FiUsers /> },
   { label: "Orders", to: "/dashboard/orders", icon: <FiShoppingBag /> },
+  // { label: "My Orders", to: "/dashboard/my-orders", icon: <FiShoppingBag /> },
 ];
 
 const Dashboard = () => {

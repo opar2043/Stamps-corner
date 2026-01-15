@@ -17,20 +17,20 @@ const img_api_key =
 const EditProducts = () => {
   const { id } = useParams();
   const axiosSecure = useAxios();
+
+  const [products, refetch] = useProducts();
   const [stamp, setStamp] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const [products, refetch, isLoading] = useProducts();
-
-  // 🔹 Find product
-  const findstamp = products?.find((item) => item._id === id);
-
-  // 🔹 Sync to local state
+  // 🔹 Find product once products are loaded
   useEffect(() => {
-    if (findstamp) {
-      setStamp(findstamp);
+    if (products?.length) {
+      const found = products.find((item) => item._id === id);
+      setStamp(found || null);
+      setLoading(false);
     }
-  }, [findstamp]);
+  }, [products, id]);
 
   const handleEditStamp = async (e) => {
     e.preventDefault();
@@ -38,18 +38,17 @@ const EditProducts = () => {
 
     const form = e.target;
 
-    const stampObj = {
+    const updatedStamp = {
       name: form.name.value,
       country: form.country.value,
-      year: form.year.value,
-      condition: form.condition.value,
+      year: parseInt(form.year.value),
       price: parseFloat(form.price.value),
       letter: form.letter.value.toUpperCase(),
       image: stamp.image,
     };
 
     try {
-      // 🔹 Upload image if changed
+      // 🔹 Upload new image if selected
       if (imageFile) {
         const data = new FormData();
         data.append("image", imageFile);
@@ -59,10 +58,10 @@ const EditProducts = () => {
           body: data,
         });
         const imgData = await res.json();
-        stampObj.image = imgData.data.display_url;
+        updatedStamp.image = imgData.data.display_url;
       }
 
-      const res = await axiosSecure.put(`/products/${id}`, stampObj);
+      const res = await axiosSecure.patch(`/products/${id}`, updatedStamp);
 
       if (res.data.modifiedCount > 0) {
         Swal.fire({
@@ -72,7 +71,7 @@ const EditProducts = () => {
           timer: 1500,
           showConfirmButton: false,
         });
-        refetch(); // ✅ IMPORTANT
+        refetch();
       } else {
         Swal.fire({
           icon: "info",
@@ -89,11 +88,21 @@ const EditProducts = () => {
     }
   };
 
-  if (isLoading || !stamp) {
+  // 🔹 Loading State
+  if (loading) {
     return (
-      <p className="text-center mt-10 text-gray-500">
+      <div className="text-center py-10 text-lg font-semibold">
         Loading stamp data...
-      </p>
+      </div>
+    );
+  }
+
+  // 🔹 If product not found
+  if (!stamp) {
+    return (
+      <div className="text-center py-10 text-red-500 font-semibold">
+        Stamp not found!
+      </div>
     );
   }
 
@@ -146,24 +155,10 @@ const EditProducts = () => {
           />
         </div>
 
-        {/* Condition */}
-        <div>
-          <label className="text-sm font-semibold mb-1 block">
-            Condition
-          </label>
-          <input
-            type="text"
-            name="condition"
-            defaultValue={stamp.condition}
-            required
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
-
         {/* Price */}
         <div>
           <label className="flex items-center gap-2 text-sm font-semibold mb-1">
-            <FiDollarSign /> Price
+           (£) Price
           </label>
           <input
             type="number"

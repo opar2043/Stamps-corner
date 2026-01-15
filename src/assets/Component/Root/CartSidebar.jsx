@@ -7,11 +7,13 @@ import Swal from "sweetalert2";
 
 import useCart from "../Hooks/useCart";
 import useAxios from "../Hooks/useAxios";
+import useAuth from "../Hooks/useAuth";
 
 const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
   const [cart = [], refetch] = useCart();
   const [quantities, setQuantities] = useState({});
   const axiosSecure = useAxios();
+  const { user } = useAuth();
 
   const handleDeleteCart = async (id) => {
     const confirm = await Swal.fire({
@@ -28,16 +30,13 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
 
     try {
       const res = await axiosSecure.delete(`/cart/${id}`);
-
-      console.log(res);
-        Swal.fire({
-          icon: "success",
-          title: "Removed!",
-          timer: 1200,
-          showConfirmButton: false,
-        });
-        refetch();
-     
+      Swal.fire({
+        icon: "success",
+        title: "Removed!",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+      refetch();
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -58,6 +57,52 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
       const qty = quantities[item._id] ?? 1;
       return sum + Number(item.price || 0) * qty;
     }, 0) || 0;
+
+  // const handlePayPal = async (e) => {
+  //   e.preventDefault();
+  //   const items = cart.map((item) => ({
+  //     productId: item.productId,
+  //     qty: quantities[item._id] || item.quantity || 1,
+  //   }));
+  //   const res = await axiosSecure.post("/payment", {
+  //     items,
+  //     userId: user?.uid,
+  //   });
+  //   if (res?.data?.approvalUrl) {
+  //     window.location.href = res.data.approvalUrl;
+  //   }
+  // };
+
+  const handlePayPal = async (e) => {
+    e.preventDefault();
+
+    if (!cart.length) return;
+
+    const items = cart.map((item) => ({
+      productId: item.productId || item._id, // ✅ fallback
+      qty: quantities[item._id] ?? 1,
+    }));
+
+    try {
+      const res = await axiosSecure.post("/payment", {
+        items,
+        userId: user?.uid,
+      });
+
+      if (res.data?.approvalUrl) {
+        window.location.href = res.data.approvalUrl;
+      } else {
+        throw new Error("No approval URL");
+      }
+    } catch (error) {
+      console.error("Payment Error:", error.response?.data || error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Payment Failed",
+        text: "Unable to process PayPal payment.",
+      });
+    }
+  };
 
   return (
     <>
@@ -111,7 +156,7 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
                       />
 
                       <p className="mt-2 text-sm font-semibold text-slate-700">
-                        ${(item.price * qty).toFixed(2)}
+                        £{(item.price * qty).toFixed(2)}
                       </p>
                     </div>
 
@@ -137,14 +182,15 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
           <div className="border-t p-4 space-y-3 text-black">
             <div className="flex justify-between font-semibold">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>£{subtotal.toFixed(2)}</span>
             </div>
 
-            <Link to="/payment">
-              <button className="w-full text-white bg-[#103C6B] py-2 rounded font-semibold">
-                Go to Checkout
-              </button>
-            </Link>
+            <button
+              onClick={(e) => handlePayPal(e)}
+              className="w-full text-white bg-[#103C6B] transition-all hover:bg-yellow-700  py-2 rounded font-semibold"
+            >
+              PROCEED TO CHECKOUT
+            </button>
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://stupms-backend.vercel.app/",
+  baseURL: "https://new-stamps-corner.vercel.app/",
   // baseURL: "http://localhost:5001/",
 });
 

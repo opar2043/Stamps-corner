@@ -155,7 +155,7 @@ const AddProducts = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              <FiDollarSign className="inline mr-2 text-blue-500" /> Price ($)
+              <FiDollarSign className="inline mr-2 text-blue-500" /> Price (£)
             </label>
             <input
               type="number"
