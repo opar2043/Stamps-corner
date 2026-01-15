@@ -10,6 +10,7 @@ import {
   FiBookmark,
 } from "react-icons/fi";
 import useProducts from "../../Hooks/useProducts";
+import { FaAudioDescription } from "react-icons/fa";
 
 const img_api_key =
   "https://api.imgbb.com/1/upload?key=188918a9c4dee4bd0453f7ec15042a27";
@@ -41,9 +42,10 @@ const EditProducts = () => {
     const updatedStamp = {
       name: form.name.value,
       country: form.country.value,
-      year: parseInt(form.year.value),
+      condition: form.condition.value,
+      // year: parseInt(form.year.value),
       price: parseFloat(form.price.value),
-      letter: form.letter.value.toUpperCase(),
+      // letter: form.letter.value.toUpperCase(),
       image: stamp.image,
     };
 
@@ -144,12 +146,12 @@ const EditProducts = () => {
         {/* Year */}
         <div>
           <label className="flex items-center gap-2 text-sm font-semibold mb-1">
-            <FiCalendar /> Year
+            <FaAudioDescription /> Description
           </label>
           <input
-            type="number"
-            name="year"
-            defaultValue={stamp.year}
+            type="text"
+            name="condition"
+            defaultValue={stamp.condition}
             required
             className="w-full border rounded px-3 py-2"
           />
@@ -170,7 +172,7 @@ const EditProducts = () => {
         </div>
 
         {/* Letter */}
-        <div>
+        {/* <div>
           <label className="text-sm font-semibold mb-1 block">
             Letter
           </label>
@@ -182,7 +184,7 @@ const EditProducts = () => {
             required
             className="w-full border rounded px-3 py-2 uppercase text-center"
           />
-        </div>
+        </div> */}
 
         {/* Image */}
         <div>

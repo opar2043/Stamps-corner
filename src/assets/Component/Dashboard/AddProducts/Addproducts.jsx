@@ -21,12 +21,11 @@ const AddProducts = () => {
 
     const name = form.name.value;
     const country = form.country.value;
-    const year = form.year.value;
     const condition = form.condition.value;
+    
     const price = form.price.value;
-    const letter = form.letter.value.toUpperCase();
+    // const letter = form.letter.value.toUpperCase();
     const imageFile = form.image.files[0];
-
 
     const data = new FormData();
     data.append("image", imageFile);
@@ -40,10 +39,10 @@ const AddProducts = () => {
         const stampObj = {
           name,
           country,
-          year,
+          // year,
           condition,
           price: parseFloat(price),
-          letter,
+          // letter,
           image: imgData.data.url,
         };
 
@@ -125,7 +124,7 @@ const AddProducts = () => {
 
         {/* Year & Condition */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               <FiCalendar className="inline mr-2 text-blue-500" /> Year
             </label>
@@ -136,23 +135,20 @@ const AddProducts = () => {
               placeholder="e.g. 1854"
               className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
-          </div>
+          </div> */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Condition
+              Description
             </label>
             <input
               type="text"
               name="condition"
               required
-              placeholder="e.g. Used – Good"
+              placeholder="Write des....."
               className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
           </div>
-        </div>
 
-        {/* Price & Letter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               <FiDollarSign className="inline mr-2 text-blue-500" /> Price (£)
@@ -166,7 +162,24 @@ const AddProducts = () => {
               className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
             />
           </div>
-          <div>
+        </div>
+
+        {/* Price & Letter */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              <FiDollarSign className="inline mr-2 text-blue-500" /> Price (£)
+            </label>
+            <input
+              type="number"
+              name="price"
+              step="0.01"
+              required
+              placeholder="e.g. 60.00"
+              className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            />
+          </div> */}
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Letter
             </label>
@@ -178,7 +191,7 @@ const AddProducts = () => {
               maxLength={1}
               className="w-full px-3 py-2 border border-gray-200 rounded-xs focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm text-center uppercase"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* Image */}

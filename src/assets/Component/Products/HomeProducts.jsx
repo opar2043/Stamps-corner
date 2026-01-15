@@ -23,7 +23,7 @@ const HomeProducts = () => {
       </h2>
 
       {/* Product Grid */}
-      <div className="grid gap-6 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 w-11/12 mx-auto">
+      <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-11/12 mx-auto">
         {products && products?.map((item) => (
           <div
             key={item._id}

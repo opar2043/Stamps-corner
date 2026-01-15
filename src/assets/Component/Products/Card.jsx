@@ -6,7 +6,7 @@ import useAxios from "../Hooks/useAxios";
 import useCart from "../Hooks/useCart";
 
 const Card = ({ item }) => {
-  const { image, name, country, price,year } = item;
+  const { image, name, country, price,condition} = item;
   const [, refetch] = useCart();
   const axiosSecure = useAxios();
 
@@ -51,13 +51,14 @@ const Card = ({ item }) => {
 
   return (
     <div className="bg-white border shadow-sm hover:shadow-md transition">
-      <div className="h-32 bg-gray-100">
+      <div className="h-52 bg-gray-100">
         <img src={image} alt={name} className="w-full h-full object-cover" />
       </div>
 
       <div className="p-3">
         <h3 className="text-sm font-semibold line-clamp-1">{name}</h3>
-        <p className="text-xs text-gray-500">{country} , <span className="text-[9px]">{year}</span></p>
+        <p className="text-xs text-gray-500">{country}</p>
+        <p className="text-xs text-gray-500">{condition}</p>
 
         <div className="flex justify-between items-center mt-2">
           <span className="font-semibold text-[#0E4588]">
