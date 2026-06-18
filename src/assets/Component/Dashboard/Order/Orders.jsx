@@ -123,6 +123,29 @@ const Orders = () => {
                 </div>
               </div>
 
+              {/* Shipping Info */}
+              {selectedOrder.shippingInfo && (
+                <div className="mb-6 rounded-xl bg-slate-50 p-4 text-sm">
+                  <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">Shipping Information</h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-slate-400">Name</p>
+                      <p className="font-semibold text-slate-700">{selectedOrder.shippingInfo.name}</p>
+                    </div>
+                    <div>
+                      <p className="text-slate-400">Email</p>
+                      <p className="font-semibold text-slate-700">{selectedOrder.shippingInfo.email}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-slate-400">Address</p>
+                      <p className="font-semibold text-slate-700">
+                        {selectedOrder.shippingInfo.address}, {selectedOrder.shippingInfo.city} {selectedOrder.shippingInfo.zip}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Items List */}
               <h4 className="mb-3 text-xs font-bold uppercase tracking-widest text-slate-400">Line Items</h4>
               <div className="space-y-3">

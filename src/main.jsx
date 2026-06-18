@@ -22,6 +22,7 @@ import PaymentSuccess from "./assets/Component/Payment/PaymentSuccess";
 import PaymentFailed from "./assets/Component/Payment/PaymentFailed";
 import MyOrders from "./assets/Component/Dashboard/Order/MyOrders";
 import Orders from "./assets/Component/Dashboard/Order/Orders";
+import Payment from "./assets/Component/PaymentStripe/Payment";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
       //  Payment
       { path: "/payment-success", element: <PaymentSuccess /> },
       { path: "/payment-failed", element: <PaymentFailed /> },
+      { path: "/payment", element: <Payment /> },
     ],
   },
   {

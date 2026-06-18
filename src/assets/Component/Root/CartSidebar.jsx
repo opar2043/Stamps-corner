@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FaShoppingCart, FaTrash } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import useCart from "../Hooks/useCart";
@@ -14,6 +14,7 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
   const [quantities, setQuantities] = useState({});
   const axiosSecure = useAxios();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleDeleteCart = async (id) => {
     const confirm = await Swal.fire({
@@ -104,6 +105,11 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
     }
   };
 
+  const handleStripeCheckout = () => {
+    onClose();
+    navigate("/payment", { state: { quantities } });
+  };
+
   return (
     <>
       {/* Sidebar */}
@@ -186,11 +192,21 @@ const CartSidebar = ({ isOpen = false, onClose = () => {} }) => {
             </div>
 
             <button
-              onClick={(e) => handlePayPal(e)}
+              onClick={handleStripeCheckout}
               className="w-full text-white bg-[#103C6B] transition-all hover:bg-yellow-700  py-2 rounded font-semibold"
+            >
+              PROCEED TO STRIPE PAYMENT
+            </button>
+
+            {/* PayPal Button Hidden for Now Default Behavior Below */}
+            {/* 
+            <button
+              onClick={(e) => handlePayPal(e)}
+              className="w-full text-white bg-[#103C6B] transition-all hover:bg-yellow-700  py-2 rounded font-semibold hidden"
             >
               PROCEED TO CHECKOUT
             </button>
+            */}
           </div>
         )}
       </div>

@@ -9,7 +9,7 @@ const Overview = () => {
     const fetchStats = async () => {
       try {
         const res = await fetch(
-          "https://stupms-backend.vercel.app/dashboard-stats"
+          "https://stamp-corner-paypal.vercel.app/dashboard-stats"
         );
         const data = await res.json();
         setStats(data);
